@@ -4,12 +4,6 @@ import './Experience.css';
 const Experience = () => {
   const experienceData = [
     {
-      company: 'Qualcomm',
-      role: 'AI Quality Assurance (AIQA)',
-      duration: 'Starting January 2027',
-      description: 'Incoming AI Quality Assurance hire, offer secured through campus placements.',
-    },
-    {
       company: 'IIIT Delhi',
       role: 'Teaching Assistant, ECE Labs',
       duration: 'June 2026 – Present',
