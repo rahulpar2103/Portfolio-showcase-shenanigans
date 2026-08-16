@@ -12,12 +12,11 @@ const Projects = () => {
       title: 'SupportFlow',
       isFlagship: true,
       subtitle: 'Production-Deployed Ticketing Platform',
-      tags: ['FastAPI', 'PostgreSQL', 'pgvector', 'Redis', 'Celery', 'SQLAlchemy', 'React 19'],
+      tags: ['FastAPI', 'PostgreSQL', 'pgvector', 'Redis', 'Celery', 'SQLAlchemy'],
       bullets: [
         'RBAC across Admin/Agent/Employee roles with JWT auth and per-endpoint rate limiting',
-        'RAG chatbot (pgvector plus Gemini 2.5 Flash) with role-scoped retrieval',
+        'RAG chatbot (pgvector + Gemini 2.5 Flash) with role-scoped retrieval',
         'Redis caching with prefix-based invalidation, SLA management with priority deadlines',
-        'S3 file uploads, async email via Celery plus AWS SES, full audit logging',
         'CI/CD via GitHub Actions running 214 pytest tests per push, real-time WebSocket notifications',
       ],
       links: [
@@ -30,10 +29,10 @@ const Projects = () => {
       id: '02',
       title: 'ELEO — ECE Chatbot',
       subtitle: 'RAG Chatbot & CMS for IIIT Delhi',
-      tags: ['LangGraph', 'FAISS', 'Gemini', 'FastAPI'],
+      tags: ['LangGraph', 'FAISS', 'Gemini', 'FastAPI', 'Celery'],
       bullets: [
-        'RAG chatbot for IIIT Delhi\'s ECE Labs website, orchestrated with LangGraph plus FAISS retrieval, Gemini fallback chain for reliability',
-        'Rebuilt the ECE Labs website (7 lab pages) as a JSON-driven CMS so non-technical staff can update content without touching code',
+        'RAG chatbot for IIIT Delhi\'s ECE Labs website, orchestrated with LangGraph + FAISS retrieval',
+        'Rebuilt the ECE Labs website (7 lab pages) as a JSON-driven CMS for non-technical staff',
         'Automated daily knowledge base refresh (Celery Beat), per-session rate limiting',
       ],
       links: [
@@ -47,9 +46,9 @@ const Projects = () => {
       subtitle: 'Real-Time Multi-User GitHub Monitoring',
       tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'OAuth 2.0'],
       bullets: [
-        'Real-time GitHub activity dashboard: FastAPI plus WebSocket backend, JWT and GitHub OAuth 2.0 login',
-        'Celery Beat polling pipeline with event ID watermarking pushing live updates via Redis Pub/Sub every 10 seconds',
-        'Per-repo WebSocket channels with Redis reference counting for automatic cleanup and multi-user tracking',
+        'Real-time GitHub activity dashboard: FastAPI + WebSocket backend, JWT & GitHub OAuth 2.0 login',
+        'Celery Beat polling pipeline pushing live updates via Redis Pub/Sub every 10 seconds',
+        'Per-repo WebSocket channels with Redis reference counting for automatic cleanup',
       ],
       links: [
         { label: 'Backend', url: 'https://github.com/rahulpar2103/Github-Dashboard-Backend' },
@@ -61,11 +60,11 @@ const Projects = () => {
       title: 'YOLOPX Inference',
       isResearch: true,
       subtitle: 'Frame-Skip Optimization for Computer Vision',
-      tags: ['PyTorch', 'OpenCV', 'YOLOPX'],
+      tags: ['PyTorch', 'OpenCV', 'YOLOPX', 'Python'],
       bullets: [
         'Adaptive frame-skip inference pipeline for a YOLOPX lane detection model',
-        'Leakage-free pipeline using pixel-diff and detection-confidence signals, 0.58 dilated IoU baseline across 7,988 dashcam frames',
-        'Benchmarked 3 keyframe-skipping strategies across 36 configurations, up to 5x inference compute reduction with IoU degradation under 3%',
+        'Leakage-free pipeline using pixel-diff and detection-confidence signals',
+        'Benchmarked 3 keyframe-skipping strategies across 36 configs, up to 5x compute reduction',
       ],
       note: 'Ongoing Coursework Project',
       links: [],
@@ -75,17 +74,15 @@ const Projects = () => {
   useEffect(() => {
     const el = railRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // fire once and stop
+          observer.disconnect();
         }
       },
       { threshold: 0.1 }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -94,7 +91,7 @@ const Projects = () => {
     <div className='projects-container'>
       <div className='projects-header-group'>
         <h2>Featured Projects</h2>
-        <p className='projects-instruction'>Hover over any card to expand its spotlight details</p>
+        <p className='projects-instruction'>Hover a card to see full details</p>
       </div>
 
       <div
@@ -113,26 +110,26 @@ const Projects = () => {
             >
               {/* Header – always visible */}
               <div className='bar-header'>
-                <div className='header-left'>
-                  <span className='bar-number'>{project.id}</span>
+                <span className='bar-number'>{project.id}</span>
+                <div className='bar-header-text'>
                   <h3 className='bar-title'>{project.title}</h3>
+                  <p className='bar-subtitle'>{project.subtitle}</p>
                 </div>
-                <div className='header-right'>
+                <div className='badge-col'>
                   {project.isFlagship && <span className='bar-badge flagship'>Flagship</span>}
                   {project.isResearch && <span className='bar-badge research'>Research</span>}
                 </div>
               </div>
 
-              {/* Body – slides in when expanded */}
-              <div className='bar-body'>
-                <p className='project-subtitle'>{project.subtitle}</p>
+              {/* Tags – always visible */}
+              <div className='bar-tags'>
+                {project.tags.map((tag, tIndex) => (
+                  <span key={tIndex} className='tag'>{tag}</span>
+                ))}
+              </div>
 
-                <div className='project-tags'>
-                  {project.tags.map((tag, tIndex) => (
-                    <span key={tIndex} className='tag'>{tag}</span>
-                  ))}
-                </div>
-
+              {/* Bullets + Links – fade in on hover, no height change */}
+              <div className={`bar-details${isExpanded ? ' visible' : ''}`}>
                 <ul className='project-bullets'>
                   {project.bullets.map((bullet, bIndex) => (
                     <li key={bIndex}>{bullet}</li>
