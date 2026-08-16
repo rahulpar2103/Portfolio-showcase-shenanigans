@@ -34,7 +34,7 @@
     gap: 1rem;
     width: 100%;
     max-width: 1150px;
-    height: 310px;          /* compact, consistent height */
+    height: 420px;          /* consistent height, fits content */
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -63,6 +63,8 @@
     box-sizing: border-box;
     flex: 1;
     min-width: 160px;
+    /* Collapsed: vertically center content */
+    justify-content: center;
 }
 
 .spotlight-bar.flagship {
@@ -80,6 +82,8 @@
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.13);
     border-color: rgba(0, 150, 136, 0.3);
     cursor: default;
+    /* Expanded: top-align so content flows from top */
+    justify-content: flex-start;
 }
 
 /* ── Header: CENTER aligned ── */
@@ -88,9 +92,9 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1rem 1rem 0.5rem;
+    padding: 1.1rem 1rem 0.6rem;
     flex-shrink: 0;
-    gap: 0.15rem;
+    gap: 0.2rem;
 }
 
 .bar-top-row {
@@ -99,34 +103,35 @@
     justify-content: center;
     gap: 0.5rem;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .bar-number {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 800;
     color: #009688;
 }
 
 .bar-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #2c3e50;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
+    max-width: 200px;
 }
 
 .bar-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #718096;
     margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     max-width: 95%;
     font-weight: 500;
+    /* allow wrapping so subtitle is never cut */
+    white-space: normal;
+    line-height: 1.35;
 }
 
 .bar-badge {
@@ -162,29 +167,32 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.3rem;
-    padding: 0 0.8rem 0.8rem;
+    gap: 0.35rem;
+    padding: 0 0.8rem 1rem;
     flex-shrink: 0;
 }
 
 .tag {
     background-color: #edf2f7;
     color: #4a5568;
-    font-size: 0.72rem;
-    padding: 0.15rem 0.55rem;
+    font-size: 0.76rem;
+    padding: 0.18rem 0.6rem;
     border-radius: 5px;
     font-weight: 500;
 }
 
 /* ── Details: only rendered when expanded, fade in ── */
 .bar-details {
-    padding: 0 1.1rem 1rem;
+    padding: 0 1.2rem 1.2rem;
     flex: 1;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     overflow-y: auto;
     animation: detailFadeIn 0.25s ease forwards;
+    /* scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 transparent;
 }
 
 @keyframes detailFadeIn {
@@ -200,9 +208,9 @@
 }
 
 .project-bullets li {
-    margin-bottom: 0.45rem;
-    line-height: 1.45;
-    font-size: 0.84rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    font-size: 0.88rem;
 }
 
 .project-note {
@@ -250,6 +258,7 @@
         width: 100%;
         min-width: 100%;
         height: auto;
+        justify-content: flex-start;
     }
 
     .bar-header {
@@ -263,10 +272,6 @@
 
     .bar-tags {
         justify-content: flex-start;
-    }
-
-    .bar-subtitle {
-        white-space: normal;
     }
 
     .bar-title {
