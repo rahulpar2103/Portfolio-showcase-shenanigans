@@ -17,7 +17,7 @@ const Contact = () => {
           <div className='tooltip'>GitHub</div>
           <span><FontAwesomeIcon icon={faGithub} /></span>
         </a>
-        <a href='https://leetcode.com/rahulpar2103' target='_blank' rel="noopener noreferrer" className='icon leetcode'>
+        <a href='https://leetcode.com/u/rahulpar03/' target='_blank' rel="noopener noreferrer" className='icon leetcode'>
           <div className='tooltip'>LeetCode</div>
           <span><FontAwesomeIcon icon={faCode} /></span>
         </a>
