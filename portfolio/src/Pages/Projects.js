@@ -114,61 +114,63 @@ const Projects = () => {
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => setActiveIndex(isExpanded ? null : index)}
             >
-              {/* Collapsed Vertical Bar View */}
-              <div className='collapsed-view'>
-                <span className='bar-id'>{project.id}</span>
-                <div className='bar-title-wrapper'>
-                  <span className='bar-title'>{project.title}</span>
-                </div>
-                {project.isFlagship && <span className='bar-mini-badge flagship'>Flagship</span>}
-                {project.isResearch && <span className='bar-mini-badge research'>Research</span>}
-              </div>
-
-              {/* Expanded Spotlight Content View */}
-              <div className='expanded-view'>
-                <div className='spotlight-card-header'>
-                  <div className='title-group'>
-                    <span className='project-number'>{project.id}</span>
-                    <h3>{project.title}</h3>
+              {!isExpanded ? (
+                /* Collapsed Bar View */
+                <div className='collapsed-view'>
+                  <span className='bar-id'>{project.id}</span>
+                  <div className='bar-title-wrapper'>
+                    <span className='bar-title'>{project.title}</span>
                   </div>
-                  <div className='badge-group'>
-                    {project.isFlagship && <span className='badge flagship-badge'>Flagship</span>}
-                    {project.isResearch && <span className='badge research-badge'>Research</span>}
+                  {project.isFlagship && <span className='bar-mini-badge flagship'>Flagship</span>}
+                  {project.isResearch && <span className='bar-mini-badge research'>Research</span>}
+                </div>
+              ) : (
+                /* Expanded Spotlight Card Content View */
+                <div className='expanded-view'>
+                  <div className='spotlight-card-header'>
+                    <div className='title-group'>
+                      <span className='project-number'>{project.id}</span>
+                      <h3>{project.title}</h3>
+                    </div>
+                    <div className='badge-group'>
+                      {project.isFlagship && <span className='badge flagship-badge'>Flagship</span>}
+                      {project.isResearch && <span className='badge research-badge'>Research</span>}
+                    </div>
                   </div>
-                </div>
 
-                <p className='project-subtitle'>{project.subtitle}</p>
+                  <p className='project-subtitle'>{project.subtitle}</p>
 
-                <div className='project-tags'>
-                  {project.tags.map((tag, tIndex) => (
-                    <span key={tIndex} className='tag'>{tag}</span>
-                  ))}
-                </div>
-
-                <ul className='project-bullets'>
-                  {project.bullets.map((bullet, bIndex) => (
-                    <li key={bIndex}>{bullet}</li>
-                  ))}
-                </ul>
-
-                {project.note && <p className='project-note'>{project.note}</p>}
-
-                {project.links.length > 0 && (
-                  <div className='project-links'>
-                    {project.links.map((link, lIndex) => (
-                      <a
-                        key={lIndex}
-                        href={link.url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='project-link-btn'
-                      >
-                        {link.label}
-                      </a>
+                  <div className='project-tags'>
+                    {project.tags.map((tag, tIndex) => (
+                      <span key={tIndex} className='tag'>{tag}</span>
                     ))}
                   </div>
-                )}
-              </div>
+
+                  <ul className='project-bullets'>
+                    {project.bullets.map((bullet, bIndex) => (
+                      <li key={bIndex}>{bullet}</li>
+                    ))}
+                  </ul>
+
+                  {project.note && <p className='project-note'>{project.note}</p>}
+
+                  {project.links.length > 0 && (
+                    <div className='project-links'>
+                      {project.links.map((link, lIndex) => (
+                        <a
+                          key={lIndex}
+                          href={link.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='project-link-btn'
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}
