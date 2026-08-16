@@ -8,10 +8,19 @@ const Technologies = () => {
     { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
     { name: 'Redis', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
     { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-    { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' },
+    { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+    { name: 'LangChain', logo: 'https://cdn.simpleicons.org/langchain/00AD9F' },
+    { name: 'PyTorch', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+    { name: 'OpenCV', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg' },
     { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { name: 'LangChain', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/langchain/langchain-original.svg' },
+    { name: 'C++', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
     { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    { name: 'Celery', logo: 'https://cdn.simpleicons.org/celery/37814A' },
+    { name: 'GitHub Actions', logo: 'https://cdn.simpleicons.org/githubactions/2088FF' },
+    { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
+    { name: 'NumPy', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
+    { name: 'Scikit-learn', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg' },
+    { name: 'Linux', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
   ];
 
   useEffect(() => {
@@ -48,7 +57,13 @@ const Technologies = () => {
       <div className='tech-grid'>
         {technologies.map((tech, index) => (
           <div key={index} className='tech-item'>
-            <img src={tech.logo} alt={tech.name} />
+            <img 
+              src={tech.logo} 
+              alt={tech.name}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }} 
+            />
             <p>{tech.name}</p>
           </div>
         ))}

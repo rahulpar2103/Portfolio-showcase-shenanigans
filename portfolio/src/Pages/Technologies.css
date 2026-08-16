@@ -1,8 +1,8 @@
 .tech-container {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     background-color: black;
-    padding: 2rem;
+    padding: 4rem 2rem;
     box-sizing: border-box;
     position: relative;
     z-index: 1;
@@ -10,7 +10,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 .gradient {
@@ -39,15 +38,15 @@
 h2 {
     color: #ffffff;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     font-size: 2.5rem;
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .tech-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem;
     justify-items: center;
     width: 100%;
     max-width: 1200px;
@@ -59,16 +58,17 @@ h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.12);
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    padding: 1rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    width: 135px;
+    height: 135px;
+    padding: 0.8rem;
     box-sizing: border-box;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.3s ease;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .tech-item.show {
@@ -77,23 +77,24 @@ h2 {
 }
 
 .tech-item:hover {
-    transform: translateY(-5px);
-    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-6px) scale(1.05);
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .tech-item img {
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
     object-fit: contain;
-    margin-bottom: 0.5rem;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+    margin-bottom: 0.4rem;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
 }
 
 .tech-item p {
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin: 0;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {
