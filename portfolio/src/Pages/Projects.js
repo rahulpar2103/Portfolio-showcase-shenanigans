@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Projects.css';
 
 const Projects = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const projectsData = [
     {
@@ -96,10 +96,13 @@ const Projects = () => {
     <div className='projects-container'>
       <div className='projects-header-group'>
         <h2>Featured Projects</h2>
-        <p className='projects-instruction'>Hover or tap any vertical bar to expand its spotlight</p>
+        <p className='projects-instruction'>Hover over any vertical bar to expand its spotlight</p>
       </div>
 
-      <div className='projects-spotlight-rail'>
+      <div 
+        className={`projects-spotlight-rail ${activeIndex !== null ? 'has-active' : 'all-closed'}`}
+        onMouseLeave={() => setActiveIndex(null)}
+      >
         {projectsData.map((project, index) => {
           const isExpanded = activeIndex === index;
           return (
@@ -109,9 +112,9 @@ const Projects = () => {
                 project.isFlagship ? 'flagship' : ''
               }`}
               onMouseEnter={() => setActiveIndex(index)}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => setActiveIndex(isExpanded ? null : index)}
             >
-              {/* Vertical Collapsed Bar Content */}
+              {/* Collapsed Vertical Bar View */}
               <div className='collapsed-view'>
                 <span className='bar-id'>{project.id}</span>
                 <div className='bar-title-wrapper'>
@@ -121,7 +124,7 @@ const Projects = () => {
                 {project.isResearch && <span className='bar-mini-badge research'>Research</span>}
               </div>
 
-              {/* Expanded Spotlight Card Content */}
+              {/* Expanded Spotlight Content View */}
               <div className='expanded-view'>
                 <div className='spotlight-card-header'>
                   <div className='title-group'>

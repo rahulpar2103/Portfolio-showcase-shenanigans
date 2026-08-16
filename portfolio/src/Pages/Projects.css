@@ -52,26 +52,37 @@
     background-color: #ffffff;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
     overflow: hidden;
-    transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     box-sizing: border-box;
+    will-change: flex;
 }
 
-.spotlight-bar.collapsed {
-    flex: 0.8;
-    min-width: 75px;
-    background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+/* Neutral state: all bars equal width when nothing is hovered */
+.projects-spotlight-rail.all-closed .spotlight-bar {
+    flex: 1;
+    min-width: 130px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
 }
 
-.spotlight-bar.collapsed:hover {
+.projects-spotlight-rail.all-closed .spotlight-bar:hover {
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
     border-color: rgba(0, 150, 136, 0.4);
 }
 
-.spotlight-bar.expanded {
-    flex: 4;
+/* Hover active state */
+.projects-spotlight-rail.has-active .spotlight-bar.collapsed {
+    flex: 0.6;
+    min-width: 70px;
+    background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+}
+
+.projects-spotlight-rail.has-active .spotlight-bar.expanded {
+    flex: 3.5;
+    min-width: 480px;
+    background: #ffffff;
     box-shadow: 0 14px 38px rgba(0, 0, 0, 0.14);
     border-color: rgba(0, 150, 136, 0.3);
     cursor: default;
@@ -81,8 +92,11 @@
     border-top: 5px solid #009688;
 }
 
-/* Collapsed Vertical Bar Layout */
+/* Collapsed View (Smooth Fade) */
 .collapsed-view {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,10 +105,14 @@
     height: 100%;
     padding: 1.8rem 0.5rem;
     box-sizing: border-box;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
 .spotlight-bar.expanded .collapsed-view {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .bar-id {
@@ -143,31 +161,24 @@
     color: #8e44ad;
 }
 
-/* Expanded View Content */
+/* Expanded View (Smooth Fade) */
 .expanded-view {
-    display: none;
+    display: flex;
     width: 100%;
     height: 100%;
     padding: 2rem;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    animation: fadeIn 0.4s ease forwards;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease 0.1s;
+    z-index: 2;
 }
 
 .spotlight-bar.expanded .expanded-view {
-    display: flex;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateX(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .spotlight-card-header {
@@ -293,10 +304,17 @@
         min-height: 80px;
     }
 
-    .spotlight-bar.collapsed {
+    .projects-spotlight-rail.all-closed .spotlight-bar,
+    .projects-spotlight-rail.has-active .spotlight-bar.collapsed {
         flex: none;
         width: 100%;
         min-height: 70px;
+    }
+
+    .projects-spotlight-rail.has-active .spotlight-bar.expanded {
+        flex: none;
+        width: 100%;
+        min-height: 450px;
     }
 
     .collapsed-view {
