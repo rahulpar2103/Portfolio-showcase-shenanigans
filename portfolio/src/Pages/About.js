@@ -56,12 +56,7 @@ const About = () => {
           <hr />
         </div>
         <div className={`text ${isVisible ? 'visible' : ''}`}>
-          As a passionate college student, I'm developing a versatile skill set
-          in data science and web development. I'm honing my abilities in
-          Python, Pandas, and machine learning, while also crafting interactive
-          web experiences with React. My projects explore the intersection of
-          data analysis and user-friendly design. I'm excited to apply these
-          skills in real-world scenarios and continue growing as a technologist.
+          M.Tech CSE student at IIIT Delhi (GATE CS 2025, scored 503), previously B.Tech CSE at JIIT Noida. I build backend systems, most recently SupportFlow, a production-deployed FastAPI ticketing platform with role-based access control, a RAG chatbot, real-time WebSocket notifications, and a 214-test CI/CD pipeline. Comfortable across the stack: FastAPI, PostgreSQL, Redis, Celery, Docker, AWS, and React on the frontend when needed.
         </div>
       </div>
     </div>

@@ -6,11 +6,11 @@ const CARD_COUNT = 5
 const MAX_RADIUS = 200
 
 const cardData = [
-  { text: 'React', color: '#61DAFB', contrastColor: '#E6F7FE', intro: 'Building UIs' },
-  { text: 'JavaScript', color: '#F7DF1E', contrastColor: '#FFFDE6', intro: 'Scripting the Web' },
-  { text: 'CSS', color: '#264DE4', contrastColor: '#E6E9FC', intro: 'Styling with Flair' },
-  { text: 'Node.js', color: '#339933', contrastColor: '#E8F5E8', intro: 'Powering Servers' },
-  { text: 'Cyber Security', color: '#2C3E50', contrastColor: '#E7EAED', intro: 'Guarding Digital Realms' },
+  { text: 'FastAPI', color: '#009688', contrastColor: '#E6F7F5', intro: 'Building Backends' },
+  { text: 'PostgreSQL', color: '#336791', contrastColor: '#E7EDF3', intro: 'Modeling Data' },
+  { text: 'Docker', color: '#2496ED', contrastColor: '#E6F3FD', intro: 'Shipping Containers' },
+  { text: 'AWS', color: '#FF9900', contrastColor: '#FFF3E0', intro: 'Cloud Infrastructure' },
+  { text: 'M.Tech @ IIITD', color: '#34495E', contrastColor: '#E8ECF0', intro: 'GATE CS 2025, Score 503' },
   { text: 'Product Builder', color: '#27AE60', contrastColor: '#E7F6EE', intro: 'Crafting Solutions' },
   { text: 'Music Lover', color: '#1DB954', contrastColor: '#E6F9EC', intro: 'Harmonizing Life' },
   { text: 'Guitar Player', color: '#D35400', contrastColor: '#FCE9E0', intro: 'Strumming Stories' },
@@ -18,7 +18,6 @@ const cardData = [
   { text: 'Astronomer', color: '#34495E', contrastColor: '#E8ECF0', intro: 'Stargazing Dreamer' },
   { text: 'Gamer', color: '#E74C3C', contrastColor: '#FCE9E7', intro: 'Digital Adventurer' },
   { text: 'Space Enthusiast', color: '#8E44AD', contrastColor: '#F3EAF7', intro: 'Exploring Cosmos' },
-  { text: 'Valorant Player', color: '#FF4655', contrastColor: '#FFEAEC', intro: 'Tactical Sharpshooter' }
 ];
 
 const generateRandomPosition = () => ({

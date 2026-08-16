@@ -158,3 +158,35 @@ h2 {
     font-style: italic;
     margin-bottom: 1.5rem;
 }
+
+.cert-score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.cert-score-display h3 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.cert-score-display .score-main {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #009688;
+    margin: 0.5rem 0;
+}
+
+.cert-score-display p {
+    color: #ecf0f1;
+    font-size: 0.85rem;
+}

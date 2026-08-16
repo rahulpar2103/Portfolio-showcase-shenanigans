@@ -3,6 +3,8 @@ import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
 import { handleScroll } from './Components/ScrollAnimations';
 import About from './Pages/About';
+import Experience from './Pages/Experience';
+import Projects from './Pages/Projects';
 import Timeline from './Pages/Timeline';
 import Technologies from './Pages/Technologies';
 import Certificates from './Pages/Certificates';
@@ -16,6 +18,8 @@ library.add(fab);
 function App() {
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
+  const experienceRef = useRef(null);
+  const projectsRef = useRef(null);
   const timelineRef = useRef(null);
   const technologiesRef = useRef(null);
   const certificatesRef = useRef(null);
@@ -38,6 +42,8 @@ function App() {
         scrollToSection={scrollToSection}
         homeRef={homeRef}
         aboutRef={aboutRef}
+        experienceRef={experienceRef}
+        projectsRef={projectsRef}
         timelineRef={timelineRef}
         technologiesRef={technologiesRef}
         certificatesRef={certificatesRef}
@@ -45,6 +51,8 @@ function App() {
       />
       <div ref={homeRef}><Home /></div>
       <div ref={aboutRef}><About /></div>
+      <div ref={experienceRef}><Experience /></div>
+      <div ref={projectsRef}><Projects /></div>
       <div ref={timelineRef}><Timeline /></div>
       <div ref={technologiesRef}><Technologies /></div>
       <div ref={certificatesRef}><Certificates /></div>

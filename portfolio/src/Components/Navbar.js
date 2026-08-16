@@ -5,6 +5,8 @@ const Navbar = ({
   scrollToSection, 
   homeRef, 
   aboutRef, 
+  experienceRef,
+  projectsRef,
   timelineRef, 
   technologiesRef, 
   certificatesRef, 
@@ -48,6 +50,8 @@ const Navbar = ({
         <ul className='menu-list'>
           <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(homeRef); }}>Home</li>
           <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(aboutRef); }}>About</li>
+          <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(experienceRef); }}>Experience</li>
+          <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(projectsRef); }}>Projects</li>
           <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(timelineRef); }}>Education</li>
           <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(technologiesRef); }}>Technologies</li>
           <li className='menu-item' onClick={() => { closeMenu(); scrollToSection(certificatesRef); }}>Certification</li>

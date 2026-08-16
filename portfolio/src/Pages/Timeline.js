@@ -4,19 +4,19 @@ import './Timeline.css';
 const Timeline = () => {
   const educationData = [
     {
-      year: '2021',
-      institution: 'Somerville School Vasundhara Enclave',
-      description: 'Completed Senior Secondary with PCM as subjects.',
-    },
-    {
       year: '2021-2025',
-      institution: 'Jaypee Institute of Information Technology',
-      description: "Pursuing my B.Tech degree in Computer Science Engineering.",
+      institution: 'Jaypee Institute of Information Technology (JIIT), Noida',
+      description: 'B.Tech in Computer Science Engineering.',
     },
     {
-      year: '2025-bright future',
-      institution: 'TBD',
-      description: "Still Exploring my options to fill this space.:)",
+      year: '2025',
+      institution: 'GATE CS 2025',
+      description: 'Scored 503, securing direct admission to M.Tech at IIIT Delhi.',
+    },
+    {
+      year: '2025-2027',
+      institution: 'IIIT Delhi',
+      description: 'M.Tech in Computer Science Engineering.',
     },
   ];
 

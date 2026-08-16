@@ -7,6 +7,7 @@ import ethicalImage from './certs/Ethical.png';
 
 const Certificates = () => {
   const certificates = [
+    { title: 'GATE CS 2025', issuer: 'IIT/Nationwide Exam', year: 2025, image: null },
     { title: 'Power BI - PwC Switzerland', issuer: 'Forage', year: 2024, image: pwcImage },
     { title: 'Data Analytics and Visualization - Accenture', issuer: 'Forage', year: 2024, image: accentureImage },
     { title: 'Data Visualization - Tata', issuer: 'Forage', year: 2024, image: tataImage },
@@ -63,7 +64,15 @@ const Certificates = () => {
                 <p>Year: {cert.year}</p>
               </div>
               <div className="cert-card-back">
-                <img src={cert.image} alt={`${cert.title} Certificate`} />
+                {cert.image ? (
+                  <img src={cert.image} alt={`${cert.title} Certificate`} />
+                ) : (
+                  <div className="cert-score-display">
+                    <h3>GATE CS 2025</h3>
+                    <p className="score-main">Score: 503</p>
+                    <p>Direct Admission — M.Tech CSE</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
