@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Experience.css';
 
 const Experience = () => {
+  const expRef = useRef(null);
+  const isDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+
   const experienceData = [
     {
       company: 'IIIT Delhi',
@@ -38,10 +43,40 @@ const Experience = () => {
     };
   }, []);
 
+  const handleMouseDown = (e) => {
+    if (!expRef.current) return;
+    isDownRef.current = true;
+    startXRef.current = e.pageX - expRef.current.offsetLeft;
+    scrollLeftRef.current = expRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDownRef.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isDownRef.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDownRef.current || !expRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - expRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    expRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
   return (
     <div className='exp-container'>
       <h1>Work Experience</h1>
-      <div className='exp-timeline'>
+      <div 
+        className='exp-timeline'
+        ref={expRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
         {experienceData.map((item, index) => (
           <div key={index} className='exp-item'>
             <div className='exp-content'>

@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Timeline.css';
 
 const Timeline = () => {
+  const timelineRef = useRef(null);
+  const isDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+
   const educationData = [
     {
       year: '2021-2025',
@@ -36,32 +41,51 @@ const Timeline = () => {
       { threshold: 0.1 }
     );
   
-    const observeItems = () => {
-      items.forEach((item) => {
-        observer.observe(item);
-      });
-    };
-  
-    observeItems();
-  
-    const handleResize = () => {
-      observeItems();
-    };
-  
-    window.addEventListener('resize', handleResize);
+    items.forEach((item) => {
+      observer.observe(item);
+    });
   
     return () => {
       items.forEach((item) => {
         observer.unobserve(item);
       });
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handleMouseDown = (e) => {
+    if (!timelineRef.current) return;
+    isDownRef.current = true;
+    startXRef.current = e.pageX - timelineRef.current.offsetLeft;
+    scrollLeftRef.current = timelineRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDownRef.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isDownRef.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDownRef.current || !timelineRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - timelineRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    timelineRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
 
   return (
     <div className='timeline-container'>
       <h1>My Educational Journey</h1>
-      <div className='timeline'>
+      <div 
+        className='timeline' 
+        ref={timelineRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
         {educationData.map((item, index) => (
           <div key={index} className='timeline-item'>
             <div className='timeline-content'>
@@ -72,6 +96,9 @@ const Timeline = () => {
             <div className='timeline-dot'></div>
           </div>
         ))}
+      </div>
+      <div className='timeline-scroll-hint'>
+        <span>‹ Drag or scroll horizontally ›</span>
       </div>
     </div>
   );

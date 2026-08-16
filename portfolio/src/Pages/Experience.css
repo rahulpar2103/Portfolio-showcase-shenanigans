@@ -1,49 +1,79 @@
 .exp-container {
-    min-height: 100vh;
+    min-height: 60vh;
     width: 100%;
     background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     box-sizing: border-box;
 }
 
 .exp-container h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     color: #333;
     text-align: center;
     font-size: 2.5rem;
 }
 
 .exp-timeline {
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 1rem 1rem 4rem 1rem;
     width: 100%;
-    max-width: 800px;
-    padding: 10px 0;
+    max-width: 1100px;
+    position: relative;
+    cursor: grab;
+    scrollbar-width: thin;
+    scrollbar-color: #009688 transparent;
+    box-sizing: border-box;
 }
 
-.exp-timeline::after {
+.exp-timeline:active {
+    cursor: grabbing;
+}
+
+.exp-timeline::-webkit-scrollbar {
+    height: 6px;
+}
+
+.exp-timeline::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.exp-timeline::-webkit-scrollbar-thumb {
+    background: #009688;
+    border-radius: 4px;
+}
+
+.exp-timeline::before {
     content: '';
     position: absolute;
-    width: 4px;
-    background-color: #34495e;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 27px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #009688 0%, #34495e 100%);
+    z-index: 1;
 }
 
 .exp-item {
-    padding: 5px 20px;
     position: relative;
-    background-color: inherit;
-    width: 45%;
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 340px;
+    min-width: 280px;
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.5s ease-out;
+    transform: translateY(40px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    box-sizing: border-box;
 }
 
 .exp-item.show {
@@ -51,24 +81,24 @@
     transform: translateY(0);
 }
 
-.exp-item:nth-child(odd) {
-    left: 0;
-    text-align: right;
-}
-
-.exp-item:nth-child(even) {
-    left: 55%;
-    text-align: left;
-}
-
 .exp-content {
-    padding: 20px;
-    background-color: white;
+    padding: 1.5rem;
+    background-color: #ffffff;
     position: relative;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     box-sizing: border-box;
     word-wrap: break-word;
+    width: 100%;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    border: 1px solid #eef2f5;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exp-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .exp-content h2 {
@@ -93,79 +123,32 @@
 
 .exp-dot {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #009688;
-    top: 50%;
+    bottom: 20px;
     border-radius: 50%;
     z-index: 2;
-    border: 2px solid #fff;
-}
-
-.exp-item:nth-child(odd) .exp-dot {
-    left: 100%;
-    transform: translate(-50%, -50%);
-}
-
-.exp-item:nth-child(even) .exp-dot {
-    left: 0;
-    transform: translate(-50%, -50%);
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.3);
 }
 
 @media screen and (max-width: 768px) {
-    .exp-timeline::after {
-        left: 20px;
-        transform: none;
-    }
-
-    .exp-item {
-        width: 100%;
-        padding-left: 45px;
-        padding-right: 15px;
-        margin-bottom: 20px;
-    }
-
-    .exp-item:nth-child(odd),
-    .exp-item:nth-child(even) {
-        left: 0;
-        transform: none;
-        text-align: left;
-    }
-
-    .exp-dot {
-        left: 20px;
-        transform: translateY(-50%);
-    }
-
-    .exp-content {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 480px) {
     .exp-container {
-        padding: 1rem 0.5rem;
+        padding: 2rem 1rem;
     }
 
     .exp-container h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+
+    .exp-item {
+        min-width: 240px;
     }
 
     .exp-content {
-        padding: 12px;
-    }
-
-    .exp-content h2 {
-        font-size: 0.95rem;
-    }
-
-    .exp-content h3 {
-        font-size: 1rem;
-    }
-
-    .exp-content p {
-        font-size: 0.85rem;
+        padding: 1.2rem;
     }
 }
