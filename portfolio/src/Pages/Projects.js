@@ -31,7 +31,7 @@ const Projects = () => {
       subtitle: 'RAG Chatbot & CMS for IIIT Delhi',
       tags: ['LangGraph', 'FAISS', 'Gemini', 'FastAPI', 'Celery'],
       bullets: [
-        'RAG chatbot for IIIT Delhi\'s ECE Labs website, orchestrated with LangGraph + FAISS retrieval',
+        'RAG chatbot for IIIT Delhi\'s ECE Labs website, LangGraph + FAISS retrieval, Gemini fallback chain',
         'Rebuilt the ECE Labs website (7 lab pages) as a JSON-driven CMS for non-technical staff',
         'Automated daily knowledge base refresh (Celery Beat), per-session rate limiting',
       ],
@@ -59,12 +59,12 @@ const Projects = () => {
       id: '04',
       title: 'YOLOPX Inference',
       isResearch: true,
-      subtitle: 'Frame-Skip Optimization for Computer Vision',
+      subtitle: 'Frame-Skip Optimization for CV',
       tags: ['PyTorch', 'OpenCV', 'YOLOPX', 'Python'],
       bullets: [
         'Adaptive frame-skip inference pipeline for a YOLOPX lane detection model',
         'Leakage-free pipeline using pixel-diff and detection-confidence signals',
-        'Benchmarked 3 keyframe-skipping strategies across 36 configs, up to 5x compute reduction',
+        'Benchmarked 36 configurations, up to 5× compute reduction with <3% IoU degradation',
       ],
       note: 'Ongoing Coursework Project',
       links: [],
@@ -108,53 +108,55 @@ const Projects = () => {
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => setActiveIndex(isExpanded ? null : index)}
             >
-              {/* Header – always visible */}
+              {/* CENTER-ALIGNED Header */}
               <div className='bar-header'>
-                <span className='bar-number'>{project.id}</span>
-                <div className='bar-header-text'>
+                <div className='bar-top-row'>
+                  <span className='bar-number'>{project.id}</span>
                   <h3 className='bar-title'>{project.title}</h3>
-                  <p className='bar-subtitle'>{project.subtitle}</p>
-                </div>
-                <div className='badge-col'>
                   {project.isFlagship && <span className='bar-badge flagship'>Flagship</span>}
                   {project.isResearch && <span className='bar-badge research'>Research</span>}
                 </div>
+                <p className='bar-subtitle'>{project.subtitle}</p>
               </div>
 
-              {/* Tags – always visible */}
+              <div className='bar-divider' />
+
+              {/* Tags – always visible, centered */}
               <div className='bar-tags'>
                 {project.tags.map((tag, tIndex) => (
                   <span key={tIndex} className='tag'>{tag}</span>
                 ))}
               </div>
 
-              {/* Bullets + Links – fade in on hover, no height change */}
-              <div className={`bar-details${isExpanded ? ' visible' : ''}`}>
-                <ul className='project-bullets'>
-                  {project.bullets.map((bullet, bIndex) => (
-                    <li key={bIndex}>{bullet}</li>
-                  ))}
-                </ul>
-
-                {project.note && <p className='project-note'>{project.note}</p>}
-
-                {project.links.length > 0 && (
-                  <div className='project-links'>
-                    {project.links.map((link, lIndex) => (
-                      <a
-                        key={lIndex}
-                        href={link.url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='project-link-btn'
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {link.label}
-                      </a>
+              {/* Details – only rendered (no space) when expanded */}
+              {isExpanded && (
+                <div className='bar-details'>
+                  <ul className='project-bullets'>
+                    {project.bullets.map((bullet, bIndex) => (
+                      <li key={bIndex}>{bullet}</li>
                     ))}
-                  </div>
-                )}
-              </div>
+                  </ul>
+
+                  {project.note && <p className='project-note'>{project.note}</p>}
+
+                  {project.links.length > 0 && (
+                    <div className='project-links'>
+                      {project.links.map((link, lIndex) => (
+                        <a
+                          key={lIndex}
+                          href={link.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='project-link-btn'
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}
