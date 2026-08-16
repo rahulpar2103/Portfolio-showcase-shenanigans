@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Projects.css';
 
 const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const railRef = useRef(null);
 
   const projectsData = [
     {
@@ -71,25 +73,21 @@ const Projects = () => {
   ];
 
   useEffect(() => {
-    const rail = document.querySelector('.projects-spotlight-rail');
-    if (!rail) return;
+    const el = railRef.current;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            rail.classList.add('animate');
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // fire once and stop
+        }
       },
       { threshold: 0.1 }
     );
 
-    observer.observe(rail);
-
-    return () => {
-      observer.unobserve(rail);
-    };
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -99,8 +97,9 @@ const Projects = () => {
         <p className='projects-instruction'>Hover over any card to expand its spotlight details</p>
       </div>
 
-      <div 
-        className={`projects-spotlight-rail ${activeIndex !== null ? 'has-active' : 'all-closed'}`}
+      <div
+        ref={railRef}
+        className={`projects-spotlight-rail${isVisible ? ' animate' : ''}`}
         onMouseLeave={() => setActiveIndex(null)}
       >
         {projectsData.map((project, index) => {
@@ -108,13 +107,11 @@ const Projects = () => {
           return (
             <div
               key={index}
-              className={`spotlight-bar ${isExpanded ? 'expanded' : 'collapsed'} ${
-                project.isFlagship ? 'flagship' : ''
-              }`}
+              className={`spotlight-bar${isExpanded ? ' expanded' : ' collapsed'}${project.isFlagship ? ' flagship' : ''}`}
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => setActiveIndex(isExpanded ? null : index)}
             >
-              {/* Header Banner - ALWAYS VISIBLE */}
+              {/* Header – always visible */}
               <div className='bar-header'>
                 <div className='header-left'>
                   <span className='bar-number'>{project.id}</span>
@@ -126,7 +123,7 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Body Content - Smoothly Expands */}
+              {/* Body – slides in when expanded */}
               <div className='bar-body'>
                 <p className='project-subtitle'>{project.subtitle}</p>
 
