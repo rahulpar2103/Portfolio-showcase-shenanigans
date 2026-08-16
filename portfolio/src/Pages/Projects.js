@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Projects.css';
 
 const Projects = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const projectsData = [
     {
+      id: '01',
       title: 'SupportFlow',
       isFlagship: true,
+      subtitle: 'Production-Deployed Ticketing Platform',
       tags: ['FastAPI', 'PostgreSQL', 'pgvector', 'Redis', 'Celery', 'SQLAlchemy', 'React 19'],
       bullets: [
         'RBAC across Admin/Agent/Employee roles with JWT auth and per-endpoint rate limiting',
@@ -21,7 +25,9 @@ const Projects = () => {
       ],
     },
     {
+      id: '02',
       title: 'ELEO — ECE Labs Chatbot',
+      subtitle: 'RAG Chatbot & CMS for IIIT Delhi',
       tags: ['LangGraph', 'FAISS', 'Gemini', 'FastAPI'],
       bullets: [
         'RAG chatbot for IIIT Delhi\'s ECE Labs website, orchestrated with LangGraph plus FAISS retrieval, Gemini fallback chain for reliability',
@@ -34,7 +40,9 @@ const Projects = () => {
       ],
     },
     {
-      title: 'GitDash — GitHub Activity Dashboard',
+      id: '03',
+      title: 'GitDash — Activity Dashboard',
+      subtitle: 'Real-Time Multi-User GitHub Monitoring',
       tags: ['FastAPI', 'WebSockets', 'Redis Pub/Sub', 'OAuth 2.0'],
       bullets: [
         'Real-time GitHub activity dashboard: FastAPI plus WebSocket backend, JWT and GitHub OAuth 2.0 login',
@@ -47,8 +55,10 @@ const Projects = () => {
       ],
     },
     {
+      id: '04',
       title: 'YOLOPX Adaptive Inference',
       isResearch: true,
+      subtitle: 'Frame-Skip Optimization for Computer Vision',
       tags: ['PyTorch', 'OpenCV', 'YOLOPX'],
       bullets: [
         'Adaptive frame-skip inference pipeline for a YOLOPX lane detection model',
@@ -61,73 +71,104 @@ const Projects = () => {
   ];
 
   useEffect(() => {
-    const items = document.querySelectorAll('.project-card');
+    const rail = document.querySelector('.projects-spotlight-rail');
+    if (!rail) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
+            rail.classList.add('animate');
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    items.forEach((item) => {
-      observer.observe(item);
-    });
+    observer.observe(rail);
 
     return () => {
-      items.forEach((item) => {
-        observer.unobserve(item);
-      });
+      observer.unobserve(rail);
     };
   }, []);
 
   return (
     <div className='projects-container'>
-      <h2>Projects</h2>
-      <div className='projects-grid'>
-        {projectsData.map((project, index) => (
-          <div key={index} className={`project-card ${project.isFlagship ? 'flagship' : ''}`}>
-            <div className='project-card-header'>
-              <h3>{project.title}</h3>
-              {project.isFlagship && <span className='badge flagship-badge'>Flagship Project</span>}
-              {project.isResearch && <span className='badge research-badge'>Research</span>}
-            </div>
+      <div className='projects-header-group'>
+        <h2>Featured Projects</h2>
+        <p className='projects-instruction'>Hover or tap any vertical bar to expand its spotlight</p>
+      </div>
 
-            <div className='project-tags'>
-              {project.tags.map((tag, tIndex) => (
-                <span key={tIndex} className='tag'>{tag}</span>
-              ))}
-            </div>
-
-            <ul className='project-bullets'>
-              {project.bullets.map((bullet, bIndex) => (
-                <li key={bIndex}>{bullet}</li>
-              ))}
-            </ul>
-
-            {project.note && <p className='project-note'>{project.note}</p>}
-
-            {project.links.length > 0 && (
-              <div className='project-links'>
-                {project.links.map((link, lIndex) => (
-                  <a
-                    key={lIndex}
-                    href={link.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='project-link-btn'
-                  >
-                    {link.label}
-                  </a>
-                ))}
+      <div className='projects-spotlight-rail'>
+        {projectsData.map((project, index) => {
+          const isExpanded = activeIndex === index;
+          return (
+            <div
+              key={index}
+              className={`spotlight-bar ${isExpanded ? 'expanded' : 'collapsed'} ${
+                project.isFlagship ? 'flagship' : ''
+              }`}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => setActiveIndex(index)}
+            >
+              {/* Vertical Collapsed Bar Content */}
+              <div className='collapsed-view'>
+                <span className='bar-id'>{project.id}</span>
+                <div className='bar-title-wrapper'>
+                  <span className='bar-title'>{project.title}</span>
+                </div>
+                {project.isFlagship && <span className='bar-mini-badge flagship'>Flagship</span>}
+                {project.isResearch && <span className='bar-mini-badge research'>Research</span>}
               </div>
-            )}
-          </div>
-        ))}
+
+              {/* Expanded Spotlight Card Content */}
+              <div className='expanded-view'>
+                <div className='spotlight-card-header'>
+                  <div className='title-group'>
+                    <span className='project-number'>{project.id}</span>
+                    <h3>{project.title}</h3>
+                  </div>
+                  <div className='badge-group'>
+                    {project.isFlagship && <span className='badge flagship-badge'>Flagship</span>}
+                    {project.isResearch && <span className='badge research-badge'>Research</span>}
+                  </div>
+                </div>
+
+                <p className='project-subtitle'>{project.subtitle}</p>
+
+                <div className='project-tags'>
+                  {project.tags.map((tag, tIndex) => (
+                    <span key={tIndex} className='tag'>{tag}</span>
+                  ))}
+                </div>
+
+                <ul className='project-bullets'>
+                  {project.bullets.map((bullet, bIndex) => (
+                    <li key={bIndex}>{bullet}</li>
+                  ))}
+                </ul>
+
+                {project.note && <p className='project-note'>{project.note}</p>}
+
+                {project.links.length > 0 && (
+                  <div className='project-links'>
+                    {project.links.map((link, lIndex) => (
+                      <a
+                        key={lIndex}
+                        href={link.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='project-link-btn'
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
